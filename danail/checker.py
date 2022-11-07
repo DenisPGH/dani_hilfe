@@ -71,17 +71,19 @@ class Checker:
         """
 
         :param values: dict {rol_name: list[(number,color)],rol_name_2:....}
-        :return: if find match break the for and speak the result
+        :return: if find match break the for and speak the result, if not just print
         """
         self.STATUS = False
         self.MATCHING='nothing'
         for rol_name,val in values.items():
+            if not len(val)== self.COUNT_OF_SAME_VALUES: # if less than wished values jump this rolete
+                continue
             if self.check_helper(val):
                 text=f'Roulette number {rol_name} has a {self.MATCHING}'
                 print(text)
                 # speak this uncomment later
-                self.stimme.speak_this(text)
+                #self.stimme.speak_this(text)
                 break
         else:
-            print('nothing in this turn')
+            print('NO MATCH this turn!!!!')
 
