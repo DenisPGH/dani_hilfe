@@ -1,11 +1,16 @@
 import numpy as np
 
+from speak_functionality import Voice
+
+
 class Checker:
     def __init__(self):
         self.MATCHING=0 # what kind of folge was
         self.STATUS=False # if the rolet is good or not
         self.COUNT_OF_SAME_VALUES=8
         self.RANGE_SMALL_NUMBERS=16
+        self.stimme=Voice()
+
 
     def check_helper(self,vals:list):
         """
@@ -24,7 +29,6 @@ class Checker:
             dict_compact['b']=0
         if 'rb' not in dict_compact.keys():
             dict_compact['rb']=0
-        #print(dict_compact)
 
 
         if col[0]=='r' and count[0]==self.COUNT_OF_SAME_VALUES or \
@@ -52,19 +56,31 @@ class Checker:
             self.STATUS = True
             self.MATCHING = 'EVEN' #work with 0
             return True
-        elif np.all(numbers%2==1): # every are odd
+
+        # ODD here
+        if 0 in numbers:
+            numbers[numbers==0]=1
+        if np.all(numbers%2==1): # every are odd
             self.STATUS = True
-            self.MATCHING = 'ODD' # dont work with 0
+            self.MATCHING = 'ODD' #work with 0
             return True
         return False
 
 
     def prove_if_got_matching(self,values:dict):
+        """
+
+        :param values: dict {rol_name: list[(number,color)],rol_name_2:....}
+        :return: if find match break the for and speak the result
+        """
         self.STATUS = False
         self.MATCHING='nothing'
         for rol_name,val in values.items():
             if self.check_helper(val):
-                print(f'Roulette number {rol_name} has a {self.MATCHING}')
+                text=f'Roulette number {rol_name} has a {self.MATCHING}'
+                print(text)
+                # speak this uncomment later
+                self.stimme.speak_this(text)
                 break
         else:
             print('nothing in this turn')
