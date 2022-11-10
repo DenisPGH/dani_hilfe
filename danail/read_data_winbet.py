@@ -11,4 +11,5 @@ def read_from_win_365(counter):
     a=[{ 1:[(10,'r'),(0,'rb'),(0,'r'),(20,'r')]},
     { 1:[(0,'rb'),(0,'r'),(20,'r'),(10,'r')] },
     { 1:[(0,'rb'),(0,'r'),(20,'r'),(10,'r')] }]
-    return a[counter]
+    #return a[counter]
+    return dict_
