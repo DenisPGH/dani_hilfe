@@ -1,5 +1,4 @@
 import time
-
 from archive_functionality import DataBaseNumbers
 from checker import Checker
 from read_data_winbet import read_from_win_365
@@ -16,7 +15,7 @@ while True:
     cur_time=time.time()
     if cur_time-start_time>=interval:
         t = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-        if test >10:
+        if test >2:
             break
         result=read_from_win_365(test-1)
         check.prove_if_got_matching(result)
