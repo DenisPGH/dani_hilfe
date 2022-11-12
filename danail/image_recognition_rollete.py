@@ -8,19 +8,19 @@ speaker = pyttsx3.init()
 speaker.setProperty("rate", 150)
 speaker.setProperty("voice", 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_EN-US_ZIRA_11.0')
 
-screenshot='screen_/screen.jpg'
+screenshot='screen_/scr.png'
 
-y_first=380
-h_first=20
-x_first=0
-w_first=170
+y_first=530 #380
+x_first=90
+h_first=30
+w_first=200
 
 # origin
 img = cv2.imread(f"{screenshot}")
 # get only one rolete
 crop_img = img[y_first:y_first+h_first, x_first:x_first+w_first]
-img=cv2.resize(crop_img, (180, 30), interpolation = cv2.INTER_LINEAR)
-img = cv2.bitwise_not(img)
+img=cv2.resize(crop_img, (280, 60), interpolation = cv2.INTER_LINEAR)
+#img = cv2.bitwise_not(img)
 #img=crop_img
 
 # start bearbeitung
