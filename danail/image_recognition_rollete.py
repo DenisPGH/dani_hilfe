@@ -8,20 +8,20 @@ speaker = pyttsx3.init()
 speaker.setProperty("rate", 150)
 speaker.setProperty("voice", 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_EN-US_ZIRA_11.0')
 
-screenshot='screen_/scr.png'
+screenshot='screen_/scr_1.png'
 
-y_first=530 #380
-x_first=90
-h_first=30
-w_first=200
+y_first=830 #380
+x_first=50
+h_first=70
+w_first=600
 
 # origin
 img = cv2.imread(f"{screenshot}")
 # get only one rolete
 crop_img = img[y_first:y_first+h_first, x_first:x_first+w_first]
-img=cv2.resize(crop_img, (280, 60), interpolation = cv2.INTER_LINEAR)
-#img = cv2.bitwise_not(img)
-#img=crop_img
+#img=cv2.resize(crop_img, (280, 60), interpolation = cv2.INTER_LINEAR)
+img = cv2.bitwise_not(img)
+img=crop_img
 
 # start bearbeitung
 
@@ -43,7 +43,25 @@ for cnt in contours:
 
 
 
-print(found_wors)
+#print(found_wors)
+only_digits=[]
+import re
+patern='(?P<num>([0-9]+|o))'
+
+
+for each in found_wors:
+    digits=re.finditer(patern,each)
+    for d in digits:
+        dd=d.group('num')
+        if dd=="o":
+            dd=0
+        else:
+            dd=int(dd)
+        only_digits.append(dd)
+
+
+
+print(only_digits)
 #text=f"{len(found_wors)} found sentenses. They are: {', '.join(found_wors)}"
 # speaker.say(text)
 # speaker.runAndWait()
