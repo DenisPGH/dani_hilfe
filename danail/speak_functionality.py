@@ -1,7 +1,7 @@
 import pyttsx3
 
 
-class Voice:
+class VoiceD:
     def __init__(self):
         self.talking = pyttsx3.init()
         self.speaker = self.talking
@@ -16,4 +16,3 @@ class Voice:
 
         self.speaker.say(text)
         self.speaker.runAndWait()
-        return

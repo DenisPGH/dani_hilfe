@@ -1,6 +1,6 @@
 import numpy as np
 
-from speak_functionality import Voice
+from speak_functionality import VoiceD
 
 
 class Checker:
@@ -9,7 +9,7 @@ class Checker:
         self.STATUS=False # if the rolet is good or not
         self.COUNT_OF_SAME_VALUES=8
         self.RANGE_SMALL_NUMBERS=16
-        self.stimme=Voice()
+        self.stimme=VoiceD()
 
 
     def check_helper(self,vals:list):

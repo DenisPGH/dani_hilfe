@@ -72,6 +72,8 @@ class ImageRecognition:
         self.MIN_NUM=0
         # {wrong:write,}
         self.DICT_CORRECTION_WRONG_NUMBERS={380:30, 92:32}
+        self.RED_GROUP=[1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]
+        self.BLACK_GROUP=[2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35]
 
 
     def color_checker(self,number):
@@ -79,12 +81,9 @@ class ImageRecognition:
         :param number:
         :return: color of the number from the given rolete values b=black, r=red
         """
-
-        red_group=[]
-        black_group=[]
-        if number in red_group:
+        if number in self.RED_GROUP:
             return 'r'
-        elif number in black_group:
+        elif number in self.BLACK_GROUP:
             return 'b'
         elif number == 0:
             return  'rb'
@@ -173,7 +172,6 @@ class ImageRecognition:
             h = values[2]
             w = values[3]
             res = self.return_numbers_from_screenshot(screenshot_path, y, x, h, w)
-            print(res)
             current_number_serie=[]
             for number in res[:8]:
                 number=self.wrong_value_checker(number) # check if it wrong
