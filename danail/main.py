@@ -18,7 +18,7 @@ start_time=time.time()
 interval=2
 target_destiantion='/home/danailparvanov/Desktop/Casino/test'
 source_destination='/home/danailparvanov/Pictures'
-
+test_dir='screen_/scr_0.png'
 while True:
     cur_time=time.time()
     if cur_time-start_time>=interval:
@@ -36,8 +36,9 @@ while True:
 
         # ############take source_file
         source_file=f'{target_destiantion}/screen.png'
+
         # data from reader
-        result=ir.main_function(source_file)
+        result=ir.main_function(test_dir)
         # check for win
         check.prove_if_got_matching(result)
         # store into database

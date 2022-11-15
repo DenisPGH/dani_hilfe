@@ -4,65 +4,65 @@ import pytesseract
 import re
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\Owner\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe'
 
-# screenshot='screen_/scr_1.png'
-#
-# y_first=830 #830
-# x_first=640 # 50,640,1200
-# h_first=70
-# w_first=600
-#
-#
-#
-#
-#
-# # origin
-# img = cv2.imread(f"{screenshot}")
-# # get only one rolete
-# crop_img = img[y_first:y_first+h_first, x_first:x_first+w_first]
-# #img = cv2.bitwise_not(crop_img)
-# img=crop_img
-#
-# # start bearbeitung
-#
-# gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)# Convert the image to gray scale
-# ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)# Performing OTSU threshold
-# rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1)) #10,10
-# dilation = cv2.dilate(thresh1, rect_kernel, iterations=1)
-# contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL,
-#                                        cv2.CHAIN_APPROX_NONE)
-# im2 = img.copy()
-# found_wors=[]
-# for cnt in contours:
-#     x, y, w, h = cv2.boundingRect(cnt)
-#     rect = cv2.rectangle(im2, (x, y), (x + w, y + h), (0, 255, 0), 2)
-#     cropped = im2[y:y + h, x:x + w]
-#     text = pytesseract.image_to_string(cropped)
-#     found_wors.append(text)
-#
-#
-#
-#
-#
-# only_digits=[]
-# import re
-# patern='(?P<num>([0-9]+|o))'
-#
-# for each in found_wors:
-#     digits=re.finditer(patern,each)
-#     for d in digits:
-#         dd=d.group('num')
-#         if dd=="o":
-#             dd=0
-#         else:
-#             dd=int(dd)
-#         only_digits.append(dd)
-#
-#
-#
-# print(only_digits)
-# cv2.imshow("cropped", im2)
-# cv2.waitKey(0)
-#
+screenshot="screen_/scr_0.png"
+
+y_first=970 #970
+x_first=1200 # 50,640,1200
+h_first=70
+w_first=600
+
+
+
+
+
+# origin
+img = cv2.imread(f"{screenshot}")
+# get only one rolete
+crop_img = img[y_first:y_first+h_first, x_first:x_first+w_first]
+#img = cv2.bitwise_not(crop_img)
+img=crop_img
+
+# start bearbeitung
+
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)# Convert the image to gray scale
+ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)# Performing OTSU threshold
+rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1)) #10,10
+dilation = cv2.dilate(thresh1, rect_kernel, iterations=1)
+contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL,
+                                       cv2.CHAIN_APPROX_NONE)
+im2 = img.copy()
+found_wors=[]
+for cnt in contours:
+    x, y, w, h = cv2.boundingRect(cnt)
+    rect = cv2.rectangle(im2, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    cropped = im2[y:y + h, x:x + w]
+    text = pytesseract.image_to_string(cropped)
+    found_wors.append(text)
+
+
+
+
+
+only_digits=[]
+import re
+patern='(?P<num>([0-9]+|o))'
+
+for each in found_wors:
+    digits=re.finditer(patern,each)
+    for d in digits:
+        dd=d.group('num')
+        if dd=="o":
+            dd=0
+        else:
+            dd=int(dd)
+        only_digits.append(dd)
+
+
+
+print(only_digits)
+cv2.imshow("cropped", im2)
+cv2.waitKey(0)
+
 
 class ImageRecognition:
     def __init__(self):
@@ -164,7 +164,7 @@ class ImageRecognition:
         return res
 
 
-    def main_function(self,screenshot_path='screen_/scr_1.png',):
+    def main_function(self,screenshot_path='screen_/scr_0.png',):
         dict_with_values = {1: [], 2: [], 3: []}
         for rol, values in self.ROLLETE_PIXELS.items():
             y = values[0]
@@ -183,9 +183,9 @@ class ImageRecognition:
 
 
 
-if __name__=="__main__":
-    ir=ImageRecognition()
-    a=ir.main_function()
-    print(a)
+# if __name__=="__main__":
+#     ir=ImageRecognition()
+#     a=ir.main_function()
+#     print(a)
 
 
