@@ -1,5 +1,6 @@
 
 import cv2
+import numpy as np
 import pytesseract
 import re
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\Owner\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe'
@@ -20,7 +21,23 @@ img = cv2.imread(f"{screenshot}")
 # get only one rolete
 crop_img = img[y_first:y_first+h_first, x_first:x_first+w_first]
 #img = cv2.bitwise_not(crop_img)
-img=crop_img
+# color changing here
+hsv = cv2.cvtColor(crop_img, cv2.COLOR_BGR2HSV)
+# define range of blue color in HSV
+lower_white = np.array([0, 50, 50],dtype = "uint8")
+upper_white = np.array([0, 255, 255],dtype = "uint8")
+lower_red = np.array([0, 50,50],dtype = "uint8")
+upper_red = np.array([10, 255, 255],dtype = "uint8")
+# Threshold the HSV image to get only blue colors
+mask_white = cv2.inRange(hsv, lower_white, upper_white)
+mask_red = cv2.inRange(hsv, lower_red, upper_red)
+# Bitwise-AND mask and original image
+mask=cv2.bitwise_or(mask_white, mask_red)
+#mask= mask_red+mask_white
+res = cv2.bitwise_and(crop_img,crop_img, mask= mask)
+
+
+img=res
 
 # start bearbeitung
 
@@ -60,7 +77,8 @@ for each in found_wors:
 
 
 print(only_digits)
-cv2.imshow("cropped", im2)
+cv2.imshow("mask", im2)
+#cv2.imshow("origin", crop_img)
 cv2.waitKey(0)
 
 
